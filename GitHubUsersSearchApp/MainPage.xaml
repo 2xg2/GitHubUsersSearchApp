@@ -4,7 +4,8 @@
              x:Class="GitHubUsersSearchApp.MainPage">
 
     <ListView x:Name="listView"
-              Margin="20">
+              Margin="20"
+              ItemSelected="OnItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GitHubUsersSearchApp.Models;
 using Xamarin.Forms;
 
 namespace GitHubUsersSearchApp
@@ -20,6 +21,14 @@ namespace GitHubUsersSearchApp
             base.OnAppearing();
 
             listView.ItemsSource = await App.RestManager.SearchUsersAsync();
+        }
+
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new UserDetailsPage
+            {
+                BindingContext = e.SelectedItem as UserItem
+            });
         }
     }
 }

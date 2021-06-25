@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="GitHubUsersSearchApp.UserDetailsPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label Text="login:"/>
+                <Label Text="{Binding login}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label Text="id:"/>
+                <Label Text="{Binding id}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label Text="node_id:"/>
+                <Label Text="{Binding node_id}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label Text="avatar_url:"/>
+                <Label Text="{Binding avatar_url}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
