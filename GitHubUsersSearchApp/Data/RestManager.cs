@@ -13,9 +13,9 @@ namespace GitHubUsersSearchApp.Data
             restService = service;
         }
 
-        public Task<List<UserItem>> SearchUsersAsync()
+        public Task<List<UserItem>> SearchUsersAsync(string searchText)
         {
-            return restService.SearchUsersAsync();
+            return restService.SearchUsersAsync(searchText);
         }
     }
 }

@@ -23,12 +23,12 @@ namespace GitHubUsersSearchApp.Data
             };
         }
 
-        public async Task<List<UserItem>> SearchUsersAsync()
+        public async Task<List<UserItem>> SearchUsersAsync(string searchText)
         {
             SearchUsersResponse searchResponse = new SearchUsersResponse();
             List<UserItem> users = new List<UserItem>();
-            
-            Uri uri = new Uri(string.Format("https://api.github.com/search/users?q=tom+repos:%3E42+followers:%3E1000", string.Empty));
+
+            Uri uri = new Uri(string.Format("https://api.github.com/search/users?q={0}", searchText));
 
             try
             {

@@ -16,19 +16,22 @@ namespace GitHubUsersSearchApp
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            listView.ItemsSource = await App.RestManager.SearchUsersAsync();
-        }
-
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new UserDetailsPage
+            if (e.SelectedItem != null)
             {
-                BindingContext = e.SelectedItem as UserItem
-            });
+                await Navigation.PushAsync(new UserDetailsPage
+                {
+                    BindingContext = e.SelectedItem as UserItem
+                });
+
+                listView.SelectedItem = null;
+            }
+        }
+
+        async void EntryCompleted(object sender, EventArgs e)
+        {
+            listView.ItemsSource = await App.RestManager.SearchUsersAsync(((Entry)sender).Text);
         }
     }
 }
