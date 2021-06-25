@@ -14,5 +14,12 @@ namespace GitHubUsersSearchApp
         {
             InitializeComponent();
         }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            listView.ItemsSource = await App.RestManager.SearchUsersAsync();
+        }
     }
 }
