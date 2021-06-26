@@ -6,16 +6,20 @@ namespace GitHubUsersSearchApp.Data
 {
     public class RestManager
     {
-        IRestService restService;
+        public static string SearchUsersUrl = "https://api.github.com/search/users?q={0}";
+        public List<UserItem> LastSearchedUserItems;
+
+        private IRestService restService;
 
         public RestManager(IRestService service)
         {
             restService = service;
         }
 
-        public Task<List<UserItem>> SearchUsersAsync(string searchText)
+        public async Task<List<UserItem>> SearchUsersAsync(string searchText)
         {
-            return restService.SearchUsersAsync(searchText);
+            LastSearchedUserItems = await restService.SearchUsersAsync(searchText);
+            return LastSearchedUserItems;
         }
     }
 }

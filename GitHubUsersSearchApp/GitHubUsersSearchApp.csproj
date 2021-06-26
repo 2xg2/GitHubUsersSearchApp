@@ -19,9 +19,25 @@
     <None Remove="Models\" />
     <None Remove="Data\" />
     <None Remove="System.Text.Json" />
+    <None Remove="Views\" />
+    <None Remove="ViewModels\" />
+    <None Remove="Behaviors\" />
+    <None Remove="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Data\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MainPage.xaml.cs" />
+    <Compile Remove="UserDetailsPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="UserDetailsPage.xaml" />
+    <EmbeddedResource Remove="MainPage.xaml" />
   </ItemGroup>
 </Project>

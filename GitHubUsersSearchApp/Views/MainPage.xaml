@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GitHubUsersSearchApp.Behaviors"
+             xmlns:local1="clr-namespace:GitHubUsersSearchApp.ViewModels"
+             xmlns:local2="clr-namespace:GitHubUsersSearchApp.Converters"
+             x:Class="GitHubUsersSearchApp.Views.MainPage">
+    <ContentPage.BindingContext>
+        <local1:MainPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local2:SelectedItemEventArgsToSelectedItemConverter x:Key="ItemSelecterConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <StackLayout>
+            <Entry
+                Placeholder="Enter search text"
+                ClearButtonVisibility="WhileEditing"
+                ReturnType="Search"
+                IsTextPredictionEnabled="False"
+                >
+                <Entry.Behaviors>
+                    <local:EntryCompletedBehavior Command="{Binding EntryCompletedCommand}" />
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+        <ListView x:Name="listView"
+                  Margin="20"
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding login}"
+                               VerticalTextAlignment="Center" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding UserSelectedCommand}" Converter="{StaticResource ItemSelecterConverter}" />
+            </ListView.Behaviors>
+        </ListView>
+    </StackLayout>
+</ContentPage>

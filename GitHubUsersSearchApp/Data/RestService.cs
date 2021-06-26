@@ -28,7 +28,7 @@ namespace GitHubUsersSearchApp.Data
             SearchUsersResponse searchResponse = new SearchUsersResponse();
             List<UserItem> users = new List<UserItem>();
 
-            Uri uri = new Uri(string.Format("https://api.github.com/search/users?q={0}", searchText));
+            Uri uri = new Uri(string.Format(RestManager.SearchUsersUrl, searchText));
 
             try
             {

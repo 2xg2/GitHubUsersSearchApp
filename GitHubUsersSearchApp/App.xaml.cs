@@ -1,7 +1,5 @@
-﻿using System;
-using GitHubUsersSearchApp.Data;
+﻿using GitHubUsersSearchApp.Data;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GitHubUsersSearchApp
 {
@@ -13,7 +11,7 @@ namespace GitHubUsersSearchApp
             InitializeComponent();
 
             RestManager = new RestManager(new RestService());
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new AppShell();
         }
 
         protected override void OnStart()
