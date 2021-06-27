@@ -26,6 +26,14 @@
                 </Picker.Behaviors>
             </Picker>
         </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Type:" VerticalTextAlignment="Center"/>
+            <Picker ItemsSource="{Binding TypeTypes}" SelectedIndex="{Binding TypeSelectedIndex}">
+                <Picker.Behaviors>
+                    <local1:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding TypeSelectedIndexChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+        </StackLayout>
         <Button Text="Save">
             <Button.Behaviors>
                 <local1:EventToCommandBehavior EventName="Clicked" Command="{Binding SaveCommand}"/>

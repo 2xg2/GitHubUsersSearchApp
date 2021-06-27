@@ -39,6 +39,10 @@ namespace GitHubUsersSearchApp.Data
 
                     Debug.WriteLine("response content = " + content);
                 }
+                else
+                {
+                    Debug.WriteLine("request failed: StatusCode = " + response.StatusCode + ", ReasonPhrase = " + response.ReasonPhrase);
+                }
             }
             catch(Exception ex)
             {

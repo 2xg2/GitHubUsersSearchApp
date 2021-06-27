@@ -17,8 +17,16 @@ namespace GitHubUsersSearchApp.Data
             asc,
         }
 
+        public enum ETypeType
+        {
+            all,
+            user,
+            org,
+        }
+
         public ESortType Sort;
         public EOrderType Order;
+        public ETypeType Type;
 
         public SearchParameters()
         {
@@ -29,6 +37,7 @@ namespace GitHubUsersSearchApp.Data
         {
             Sort = parameters.Sort;
             Order = parameters.Order;
+            Type = parameters.Type;
         }
     }
 }

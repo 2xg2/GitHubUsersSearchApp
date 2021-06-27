@@ -18,6 +18,7 @@ namespace GitHubUsersSearchApp.ViewModels
 
         public ICommand SortSelectedIndexChangedCommand { get; private set; }
         public ICommand OrderSelectedIndexChangedCommand { get; private set; }
+        public ICommand TypeSelectedIndexChangedCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
 
         public ObservableCollection<string> SortTypes { get; private set; }
@@ -56,12 +57,31 @@ namespace GitHubUsersSearchApp.ViewModels
         }
         private int orderSelectedIndex;
 
+        public ObservableCollection<string> TypeTypes { get; private set; }
+        public int TypeSelectedIndex
+        {
+            get
+            {
+                return typeSelectedIndex;
+            }
+            set
+            {
+                if (typeSelectedIndex != value)
+                {
+                    typeSelectedIndex = value;
+                    OnPropertyChanged("TypeSelectedIndex");
+                }
+            }
+        }
+        private int typeSelectedIndex;
+
         private SearchParameters currentSearchParameters;
 
         public SearchParametersViewModel()
         {
             SortSelectedIndexChangedCommand = new Command((arg) => SetSortType(arg));
             OrderSelectedIndexChangedCommand = new Command((arg) => SetOrderType(arg));
+            TypeSelectedIndexChangedCommand = new Command((arg) => SetTypeType(arg));
             SaveCommand = new Command(async(arg) => await Save(arg));
 
             List<string> sortTypesList = Enum.GetNames(typeof(SearchParameters.ESortType)).ToList();
@@ -72,9 +92,14 @@ namespace GitHubUsersSearchApp.ViewModels
             OrderTypes = new ObservableCollection<string>(orderTypesList);
             OnPropertyChanged("OrderTypes");
 
+            List<string> typeTypesList = Enum.GetNames(typeof(SearchParameters.ETypeType)).ToList();
+            TypeTypes = new ObservableCollection<string>(typeTypesList);
+            OnPropertyChanged("TypeTypes");
+
             currentSearchParameters = new SearchParameters(App.RestManager.SearchParameters);
             SortSelectedIndex = (int)currentSearchParameters.Sort;
             OrderSelectedIndex = (int)currentSearchParameters.Order;
+            TypeSelectedIndex = (int)currentSearchParameters.Type;
         }
 
         private void SetSortType(object arg)
@@ -85,6 +110,11 @@ namespace GitHubUsersSearchApp.ViewModels
         private void SetOrderType(object arg)
         {
             currentSearchParameters.Order = (SearchParameters.EOrderType)OrderSelectedIndex;
+        }
+
+        private void SetTypeType(object arg)
+        {
+            currentSearchParameters.Type = (SearchParameters.ETypeType)TypeSelectedIndex;
         }
 
         private async Task Save(object arg)
