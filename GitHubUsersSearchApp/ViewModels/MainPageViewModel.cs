@@ -19,6 +19,7 @@ namespace GitHubUsersSearchApp.ViewModels
         public ICommand SearchPreviousPageCommand { get; private set; }
         public ICommand SearchNextPageCommand { get; private set; }
         public ICommand UserSelectedCommand { get; private set; }
+        public ICommand SearchParamsCommand { get; private set; }
 
         public string SearchEntryText
         {
@@ -201,6 +202,7 @@ namespace GitHubUsersSearchApp.ViewModels
             SearchPreviousPageCommand = new Command(async (arg) => await SearchPreviousPageAsync(arg));
             SearchNextPageCommand = new Command(async (arg) => await SearchNextPageAsync(arg));
             UserSelectedCommand = new Command(async(arg) => await GoToUserDetails(arg));
+            SearchParamsCommand = new Command(async (arg) => await GoToSearchParameters(arg));
         }
 
         public async Task SearchUsersStartAsync(object arg)
@@ -237,6 +239,11 @@ namespace GitHubUsersSearchApp.ViewModels
                 await Shell.Current.GoToAsync($"{nameof(UserDetailsPage)}?{nameof(UserDetailsPage.UserId)}={user.id}");
                 SelectedUser = null;
             }
+        }
+
+        public async Task GoToSearchParameters(object arg)
+        {
+            await Shell.Current.GoToAsync($"{nameof(SearchParametersPage)}");
         }
 
         private async Task SearchUsersAsync(string searchText, int page, int perPage)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using GitHubUsersSearchApp.Models;
 
@@ -8,13 +9,20 @@ namespace GitHubUsersSearchApp.Data
     public class RestManager
     {
         public static string SearchUsersBaseUrl = "https://api.github.com/search/users";
-        
+        public SearchParameters SearchParameters { get; private set; }
+
         private IRestService restService;
         private SearchUsersResponse SearchReseponse;
 
         public RestManager(IRestService service)
         {
             restService = service;
+            SearchParameters = new SearchParameters();
+        }
+
+        public void SetSearchParameters(SearchParameters searchParameters)
+        {
+            SearchParameters = searchParameters;
         }
 
         public async Task<SearchUsersResponse> SearchUsersAsync(string searchText, int page = 1, int perPage = 30)
@@ -36,13 +44,24 @@ namespace GitHubUsersSearchApp.Data
             return user;
         }
 
-        public static string GetSearchUri(string searchText, int page, int perPage)
+        public string GetSearchUri(string searchText, int page, int perPage)
         {
             string searchUri = SearchUsersBaseUrl;
             searchUri += "?";
             searchUri += string.Format("q={0}", searchText);
             searchUri += string.Format("&page={0}", page);
             searchUri += string.Format("&per_page={0}", perPage);
+
+            if(SearchParameters != null)
+            {
+                if(SearchParameters.Sort != SearchParameters.ESortType.bestmatch)
+                {
+                    searchUri += string.Format("&sort={0}", SearchParameters.Sort);
+                    searchUri += string.Format("&order={0}", SearchParameters.Order);
+                }
+            }
+
+            Debug.WriteLine("searchUri = " + searchUri);
             return searchUri;
         }
     }

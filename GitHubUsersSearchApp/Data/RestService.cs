@@ -27,7 +27,7 @@ namespace GitHubUsersSearchApp.Data
         {
             SearchUsersResponse searchResponse = new SearchUsersResponse();
             
-            Uri uri = new Uri(RestManager.GetSearchUri(searchText, page, perPage));
+            Uri uri = new Uri(App.RestManager.GetSearchUri(searchText, page, perPage));
 
             try
             {

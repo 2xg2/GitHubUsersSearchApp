@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GitHubUsersSearchApp.ViewModels"
+    xmlns:local1="clr-namespace:GitHubUsersSearchApp.Behaviors"
+    x:Class="GitHubUsersSearchApp.Views.SearchParametersPage"
+    Title="Search parameters">
+    <ContentPage.BindingContext>
+        <local:SearchParametersViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout Margin="20">
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Sort:" VerticalTextAlignment="Center"/>
+            <Picker ItemsSource="{Binding SortTypes}" SelectedIndex="{Binding SortSelectedIndex}">
+                <Picker.Behaviors>
+                    <local1:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SortSelectedIndexChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Order:" VerticalTextAlignment="Center"/>
+            <Picker ItemsSource="{Binding OrderTypes}" SelectedIndex="{Binding OrderSelectedIndex}">
+                <Picker.Behaviors>
+                    <local1:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding OrderSelectedIndexChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+        </StackLayout>
+        <Button Text="Save">
+            <Button.Behaviors>
+                <local1:EventToCommandBehavior EventName="Clicked" Command="{Binding SaveCommand}"/>
+            </Button.Behaviors>
+        </Button>
+    </StackLayout>
+</ContentPage>

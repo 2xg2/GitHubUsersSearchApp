@@ -40,6 +40,11 @@
                     <local:EventToCommandBehavior EventName="Completed" Command="{Binding SearchStartCommand}" />
                 </Entry.Behaviors>
             </Entry>
+            <Button Text="Params">
+                <Button.Behaviors>
+                    <local:EventToCommandBehavior EventName="Clicked" Command="{Binding SearchParamsCommand}"/>
+                </Button.Behaviors>
+            </Button>
         </StackLayout>
         <StackLayout IsVisible="{Binding ResultsVisible}">
             <StackLayout Orientation="Horizontal">

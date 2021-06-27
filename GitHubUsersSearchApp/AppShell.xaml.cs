@@ -9,6 +9,7 @@ namespace GitHubUsersSearchApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(UserDetailsPage), typeof(UserDetailsPage));
+            Routing.RegisterRoute(nameof(SearchParametersPage), typeof(SearchParametersPage));
         }
     }
 }
