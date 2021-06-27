@@ -2,24 +2,29 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="GitHubUsersSearchApp.Views.UserDetailsPage">
+    x:Class="GitHubUsersSearchApp.Views.UserDetailsPage"
+    Title="User Details">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Label Text="login:"/>
-                <Label Text="{Binding login}"/>
+        <StackLayout Margin="20">
+            <StackLayout Orientation="Horizontal" HeightRequest="80">
+                <Image Source="{Binding avatar_url}"/>
+                <Label Text="{Binding login}" VerticalTextAlignment="Center"  FontSize="Title"/>
             </StackLayout>
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal">
                 <Label Text="id:"/>
                 <Label Text="{Binding id}"/>
             </StackLayout>
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Label Text="node_id:"/>
-                <Label Text="{Binding node_id}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="type:"/>
+                <Label Text="{Binding type}"/>
             </StackLayout>
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Label Text="avatar_url:"/>
-                <Label Text="{Binding avatar_url}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="site_admin:"/>
+                <Label Text="{Binding site_admin}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="score:"/>
+                <Label Text="{Binding score}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
