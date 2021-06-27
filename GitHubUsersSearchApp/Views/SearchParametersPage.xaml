@@ -34,6 +34,35 @@
                 </Picker.Behaviors>
             </Picker>
         </StackLayout>
+        <StackLayout>
+            <Label Text="In:" VerticalTextAlignment="Center"/>
+            <StackLayout Padding="40,0,0,0">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="name" VerticalTextAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding InNameIsChecked}">
+                        <CheckBox.Behaviors>
+                            <local1:EventToCommandBehavior EventName="CheckedChanged" Command="{Binding InNameCheckedChangedCommand}"/>
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="login" VerticalTextAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding InLoginIsChecked}">
+                        <CheckBox.Behaviors>
+                            <local1:EventToCommandBehavior EventName="CheckedChanged" Command="{Binding InLoginCheckedChangedCommand}"/>
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="email" VerticalTextAlignment="Center"/>
+                    <CheckBox IsChecked="{Binding InEmailIsChecked}">
+                        <CheckBox.Behaviors>
+                            <local1:EventToCommandBehavior EventName="CheckedChanged" Command="{Binding InEmailCheckedChangedCommand}"/>
+                        </CheckBox.Behaviors>
+                    </CheckBox>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
         <Button Text="Save">
             <Button.Behaviors>
                 <local1:EventToCommandBehavior EventName="Clicked" Command="{Binding SaveCommand}"/>

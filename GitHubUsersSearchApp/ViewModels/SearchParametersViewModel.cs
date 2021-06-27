@@ -19,6 +19,9 @@ namespace GitHubUsersSearchApp.ViewModels
         public ICommand SortSelectedIndexChangedCommand { get; private set; }
         public ICommand OrderSelectedIndexChangedCommand { get; private set; }
         public ICommand TypeSelectedIndexChangedCommand { get; private set; }
+        public ICommand InNameCheckedChangedCommand { get; private set; }
+        public ICommand InLoginCheckedChangedCommand { get; private set; }
+        public ICommand InEmailCheckedChangedCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
 
         public ObservableCollection<string> SortTypes { get; private set; }
@@ -75,6 +78,57 @@ namespace GitHubUsersSearchApp.ViewModels
         }
         private int typeSelectedIndex;
 
+        public bool InNameIsChecked
+        {
+            get
+            {
+                return inNameIsChecked;
+            }
+            set
+            {
+                if (inNameIsChecked != value)
+                {
+                    inNameIsChecked = value;
+                    OnPropertyChanged("InNameIsChecked");
+                }
+            }
+        }
+        private bool inNameIsChecked;
+
+        public bool InLoginIsChecked
+        {
+            get
+            {
+                return inLoginIsChecked;
+            }
+            set
+            {
+                if (inLoginIsChecked != value)
+                {
+                    inLoginIsChecked = value;
+                    OnPropertyChanged("InLoginIsChecked");
+                }
+            }
+        }
+        private bool inLoginIsChecked;
+
+        public bool InEmailIsChecked
+        {
+            get
+            {
+                return inEmailIsChecked;
+            }
+            set
+            {
+                if (inEmailIsChecked != value)
+                {
+                    inEmailIsChecked = value;
+                    OnPropertyChanged("InEmailIsChecked");
+                }
+            }
+        }
+        private bool inEmailIsChecked;
+
         private SearchParameters currentSearchParameters;
 
         public SearchParametersViewModel()
@@ -82,6 +136,9 @@ namespace GitHubUsersSearchApp.ViewModels
             SortSelectedIndexChangedCommand = new Command((arg) => SetSortType(arg));
             OrderSelectedIndexChangedCommand = new Command((arg) => SetOrderType(arg));
             TypeSelectedIndexChangedCommand = new Command((arg) => SetTypeType(arg));
+            InNameCheckedChangedCommand = new Command((arg) => SetInName(arg));
+            InLoginCheckedChangedCommand = new Command((arg) => SetInLogin(arg));
+            InEmailCheckedChangedCommand = new Command((arg) => SetInEmail(arg));
             SaveCommand = new Command(async(arg) => await Save(arg));
 
             List<string> sortTypesList = Enum.GetNames(typeof(SearchParameters.ESortType)).ToList();
@@ -100,6 +157,9 @@ namespace GitHubUsersSearchApp.ViewModels
             SortSelectedIndex = (int)currentSearchParameters.Sort;
             OrderSelectedIndex = (int)currentSearchParameters.Order;
             TypeSelectedIndex = (int)currentSearchParameters.Type;
+            InNameIsChecked = currentSearchParameters.InName;
+            InLoginIsChecked = currentSearchParameters.InLogin;
+            InEmailIsChecked = currentSearchParameters.InEmail;
         }
 
         private void SetSortType(object arg)
@@ -115,6 +175,21 @@ namespace GitHubUsersSearchApp.ViewModels
         private void SetTypeType(object arg)
         {
             currentSearchParameters.Type = (SearchParameters.ETypeType)TypeSelectedIndex;
+        }
+
+        private void SetInName(object arg)
+        {
+            currentSearchParameters.InName = InNameIsChecked;
+        }
+
+        private void SetInLogin(object arg)
+        {
+            currentSearchParameters.InLogin = InLoginIsChecked;
+        }
+
+        private void SetInEmail(object arg)
+        {
+            currentSearchParameters.InEmail = InEmailIsChecked;
         }
 
         private async Task Save(object arg)

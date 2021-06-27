@@ -27,6 +27,9 @@ namespace GitHubUsersSearchApp.Data
         public ESortType Sort;
         public EOrderType Order;
         public ETypeType Type;
+        public bool InName;
+        public bool InLogin;
+        public bool InEmail;
 
         public SearchParameters()
         {
@@ -38,6 +41,9 @@ namespace GitHubUsersSearchApp.Data
             Sort = parameters.Sort;
             Order = parameters.Order;
             Type = parameters.Type;
+            InName = parameters.InName;
+            InLogin = parameters.InLogin;
+            InEmail = parameters.InEmail;
         }
     }
 }

@@ -56,6 +56,18 @@ namespace GitHubUsersSearchApp.Data
                 {
                     searchUri += string.Format("+type:{0}", SearchParameters.Type);
                 }
+                if(SearchParameters.InName)
+                {
+                    searchUri += string.Format("+in:name", string.Empty);
+                }
+                if(SearchParameters.InLogin)
+                {
+                    searchUri += string.Format("+in:login", string.Empty);
+                }
+                if(SearchParameters.InEmail)
+                {
+                    searchUri += string.Format("+in:email", string.Empty);
+                }
 
                 if(SearchParameters.Sort != SearchParameters.ESortType.bestmatch)
                 {
