@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:GitHubUsersSearchApp.Behaviors"
              xmlns:local1="clr-namespace:GitHubUsersSearchApp.ViewModels"
              xmlns:local2="clr-namespace:GitHubUsersSearchApp.Converters"
+             xmlns:local3="clr-namespace:GitHubUsersSearchApp.Extensions"
              x:Class="GitHubUsersSearchApp.Views.MainPage">
     <ContentPage.BindingContext>
         <local1:MainPageViewModel />
@@ -13,34 +14,83 @@
             <local2:SelectedItemEventArgsToSelectedItemConverter x:Key="ItemSelecterConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout>
-        <StackLayout>
+    <StackLayout Margin="20">
+        <Label Text="Welcome to"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"
+                FontSize="Title"/>
+        <StackLayout Orientation="Horizontal" HeightRequest="60" HorizontalOptions="Center">
+            <Image Source="{local3:ImageResource GitHubUsersSearchApp.Images.githubIcon.png}" />
+            <Label Text="/search/users"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    FontSize="Title"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" HeightRequest="50" HorizontalOptions="Center">
+            <Image Source="{local3:ImageResource GitHubUsersSearchApp.Images.searchIcon.png}"
+                    Aspect="AspectFit"/>
             <Entry
+                Text="{Binding SearchEntryText}"
                 Placeholder="Enter search text"
                 ClearButtonVisibility="WhileEditing"
                 ReturnType="Search"
                 IsTextPredictionEnabled="False"
                 >
                 <Entry.Behaviors>
-                    <local:EntryCompletedBehavior Command="{Binding EntryCompletedCommand}" />
+                    <local:EventToCommandBehavior EventName="Completed" Command="{Binding SearchStartCommand}" />
                 </Entry.Behaviors>
             </Entry>
         </StackLayout>
-        <ListView x:Name="listView"
-                  Margin="20"
-                  ItemsSource="{Binding Users}"
-                  SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Label Text="{Binding login}"
-                               VerticalTextAlignment="Center" />
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.Behaviors>
-                <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding UserSelectedCommand}" Converter="{StaticResource ItemSelecterConverter}" />
-            </ListView.Behaviors>
-        </ListView>
+        <StackLayout IsVisible="{Binding ResultsVisible}">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Results: "/>
+                <Label Text="{Binding ResultsCountText}"/>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding ResultsPageVisible}">
+                <StackLayout Orientation="Horizontal" HeightRequest="30" HorizontalOptions="Center"
+                         IsVisible="{Binding ResultsPageVisible}">
+                    <ImageButton Source="{local3:ImageResource GitHubUsersSearchApp.Images.prevIcon.png}"
+                                Aspect="AspectFit"
+                                IsVisible="{Binding PreviousPageButtonVisible}">
+                        <ImageButton.Behaviors>
+                            <local:EventToCommandBehavior EventName="Clicked" Command="{Binding SearchPreviousPageCommand}"/>
+                        </ImageButton.Behaviors>
+                    </ImageButton>
+                    <Label Text="{Binding ResultsPageText}"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"/>
+                    <ImageButton Source="{local3:ImageResource GitHubUsersSearchApp.Images.nextIcon.png}"
+                                Aspect="AspectFit"
+                                 IsVisible="{Binding NextPageButtonVisible}">
+                        <ImageButton.Behaviors>
+                            <local:EventToCommandBehavior EventName="Clicked" Command="{Binding SearchNextPageCommand}"/>
+                        </ImageButton.Behaviors>
+                    </ImageButton>
+                </StackLayout>
+                <StackLayout IsVisible="{Binding ResultsListVisible}">
+                    <ListView
+                        ItemsSource="{Binding Users}"
+                        SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding login}"
+                                            VerticalTextAlignment="Center" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Behaviors>
+                            <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding UserSelectedCommand}" Converter="{StaticResource ItemSelecterConverter}" />
+                        </ListView.Behaviors>
+                    </ListView>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="No items, the request might have failed. Please try again later."
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"
+                           IsVisible="{Binding ResultsNoItemsVisible}" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

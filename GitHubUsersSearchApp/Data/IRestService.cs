@@ -6,6 +6,6 @@ namespace GitHubUsersSearchApp.Data
 {
     public interface IRestService
     {
-        Task<List<UserItem>> SearchUsersAsync(string searchText);
+        Task<SearchUsersResponse> SearchUsersAsync(string searchText, int page, int perPage);
     }
 }

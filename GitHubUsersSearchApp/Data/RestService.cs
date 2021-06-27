@@ -23,12 +23,11 @@ namespace GitHubUsersSearchApp.Data
             };
         }
 
-        public async Task<List<UserItem>> SearchUsersAsync(string searchText)
+        public async Task<SearchUsersResponse> SearchUsersAsync(string searchText, int page, int perPage)
         {
             SearchUsersResponse searchResponse = new SearchUsersResponse();
-            List<UserItem> users = new List<UserItem>();
-
-            Uri uri = new Uri(string.Format(RestManager.SearchUsersUrl, searchText));
+            
+            Uri uri = new Uri(RestManager.GetSearchUri(searchText, page, perPage));
 
             try
             {
@@ -37,7 +36,8 @@ namespace GitHubUsersSearchApp.Data
                 {
                     string content = await response.Content.ReadAsStringAsync();
                     searchResponse = JsonSerializer.Deserialize<SearchUsersResponse>(content, serializerOptions);
-                    users = searchResponse.items;
+
+                    Debug.WriteLine("response content = " + content);
                 }
             }
             catch(Exception ex)
@@ -45,7 +45,7 @@ namespace GitHubUsersSearchApp.Data
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
             }
 
-            return users;
+            return searchResponse;
         }
     }
 }

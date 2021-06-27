@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GitHubUsersSearchApp.Models;
 
@@ -6,20 +7,43 @@ namespace GitHubUsersSearchApp.Data
 {
     public class RestManager
     {
-        public static string SearchUsersUrl = "https://api.github.com/search/users?q={0}";
-        public List<UserItem> LastSearchedUserItems;
-
+        public static string SearchUsersBaseUrl = "https://api.github.com/search/users";
+        
         private IRestService restService;
+        private SearchUsersResponse SearchReseponse;
 
         public RestManager(IRestService service)
         {
             restService = service;
         }
 
-        public async Task<List<UserItem>> SearchUsersAsync(string searchText)
+        public async Task<SearchUsersResponse> SearchUsersAsync(string searchText, int page = 1, int perPage = 30)
         {
-            LastSearchedUserItems = await restService.SearchUsersAsync(searchText);
-            return LastSearchedUserItems;
+            SearchReseponse = await restService.SearchUsersAsync(searchText, page, perPage);
+            return SearchReseponse;
+        }
+
+        public UserItem GetUserItem(string id)
+        {
+            UserItem user = null;
+            if (SearchReseponse != null)
+            {
+                if (Int32.TryParse(id, out int idInt))
+                {
+                    user = SearchReseponse.items.Find(x => x.id == idInt);
+                }
+            }
+            return user;
+        }
+
+        public static string GetSearchUri(string searchText, int page, int perPage)
+        {
+            string searchUri = SearchUsersBaseUrl;
+            searchUri += "?";
+            searchUri += string.Format("q={0}", searchText);
+            searchUri += string.Format("&page={0}", page);
+            searchUri += string.Format("&per_page={0}", perPage);
+            return searchUri;
         }
     }
 }

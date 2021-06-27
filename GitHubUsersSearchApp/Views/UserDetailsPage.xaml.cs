@@ -24,9 +24,9 @@ namespace GitHubUsersSearchApp.Views
         {
             try
             {
-                if (Int32.TryParse(userId, out int userIdInt))
+                UserItem user = App.RestManager.GetUserItem(userId);
+                if (user != null)
                 {
-                    UserItem user = App.RestManager.LastSearchedUserItems.Find(x => x.id == userIdInt);
                     BindingContext = user;
                 }
             }

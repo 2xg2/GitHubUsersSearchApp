@@ -23,6 +23,12 @@
     <None Remove="ViewModels\" />
     <None Remove="Behaviors\" />
     <None Remove="Converters\" />
+    <None Remove="Images\" />
+    <None Remove="Extensions\" />
+    <None Remove="Images\searchIcon.png" />
+    <None Remove="Images\githubIcon.png" />
+    <None Remove="Images\nextIcon.png" />
+    <None Remove="Images\prevIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -31,6 +37,8 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
+    <Folder Include="Images\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MainPage.xaml.cs" />
@@ -39,5 +47,11 @@
   <ItemGroup>
     <EmbeddedResource Remove="UserDetailsPage.xaml" />
     <EmbeddedResource Remove="MainPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images/searchIcon.png" />
+    <EmbeddedResource Include="Images/githubIcon.png" />
+    <EmbeddedResource Include="Images/nextIcon.png" />
+    <EmbeddedResource Include="Images/prevIcon.png" />
   </ItemGroup>
 </Project>
